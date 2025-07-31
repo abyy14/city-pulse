@@ -20,7 +20,7 @@ import { formatDateFn } from '../../utils/helper';
 import { ExpandMore } from '@mui/icons-material';
 import MapPreview from '../../components/MapPreview';
 
-const TM_API_KEY = 'tOJkYrJE6WO7fxOAgwZjGboLhWY0Jb5n';
+const TM_API_KEY = process.env.NEXT_PUBLIC_TM_API_KEY;
 
 const EventDetailPage = () => {
   const { id } = useParams();

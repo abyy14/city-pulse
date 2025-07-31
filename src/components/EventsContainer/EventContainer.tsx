@@ -18,7 +18,7 @@ import {
   deleteDoc,
 } from 'firebase/firestore';
 
-const TM_API_KEY = 'tOJkYrJE6WO7fxOAgwZjGboLhWY0Jb5n';
+const TM_API_KEY = process.env.NEXT_PUBLIC_TM_API_KEY
 
 const EventContainer = () => {
   const {

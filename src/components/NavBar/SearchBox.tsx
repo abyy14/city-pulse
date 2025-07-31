@@ -12,7 +12,7 @@ import { useEventStore } from '../../store/useEventStore';
 import SearchIcon from '@mui/icons-material/Search';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
-const TM_API_KEY = 'tOJkYrJE6WO7fxOAgwZjGboLhWY0Jb5n';
+const TM_API_KEY = rocess.env.NEXT_PUBLIC_TM_API_KEY;
 
 function SearchBox() {
   const {
