@@ -42,7 +42,7 @@ export default function Profile() {
   }
 
   return (
-    <Paper elevation={3} sx={{ p: 4, m: 4, maxWidth: 600, mx: 'auto' }}>
+    <Paper elevation={3} sx={{ p : 4, marginTop: 12, marginBottom: 4,  maxWidth: 600, mx: 'auto' }}>
       <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
         <Avatar src={user.imageUrl} sx={{ width: 80, height: 80 }} />
         <Typography variant="h5">

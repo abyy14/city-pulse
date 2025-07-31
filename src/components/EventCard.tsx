@@ -8,8 +8,8 @@ import {
 } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Event } from '../../store/useEventStore';
-import { formatDateFn } from '../../utils/helper';
+import { Event } from '../store/useEventStore';
+import { formatDateFn } from '../utils/helper';
 import { Link } from 'react-router-dom';
 
 type Props = {

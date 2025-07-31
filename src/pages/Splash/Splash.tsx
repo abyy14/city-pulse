@@ -20,7 +20,7 @@ const Splash = () => {
   useEffect(() => {
     if (isFadingOut) {
       const fadeTimer = setTimeout(() => {
-        navigate("/home");
+        navigate("/events");
       }, 1000);
       return () => clearTimeout(fadeTimer);
     }

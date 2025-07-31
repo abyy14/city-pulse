@@ -2,10 +2,10 @@
 import { useEffect, useState } from 'react';
 import { useUser } from '@clerk/clerk-react';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../utils/firebaseConfig';
+import { db } from '../utils/firebaseConfig';
 import { Grid, Typography, Container } from '@mui/material';
-import EventCard from '../../components/common/EventCard';
-import { Event } from '../../store/useEventStore'; // Your existing type
+import EventCard from '../components/EventCard';
+import { Event } from '../store/useEventStore'; // Your existing type
 
 const Favorites = () => {
   const { user } = useUser();

@@ -4,8 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ClerkProvider } from '@clerk/clerk-react';
+import { DirectionProvider } from './context/DirectionContext';
 
-const PUBLISHABLE_KEY = process.env.PUBLISHABLE_KEY || '';
+const PUBLISHABLE_KEY = process.env.REACT_APP_PUBLISHABLE_KEY || '';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,7 +14,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
      <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-    <App />
+      <DirectionProvider>
+        <App />
+      </DirectionProvider>
     </ClerkProvider>
   </React.StrictMode>
 );

@@ -8,11 +8,11 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import SearchPopover from './SearchPopover';
-import { useEventStore } from '../../store/useEventStore';
+import { useEventStore } from '../store/useEventStore';
 import SearchIcon from '@mui/icons-material/Search';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
-const TM_API_KEY = rocess.env.NEXT_PUBLIC_TM_API_KEY;
+const TM_API_KEY = process.env.REACT_APP_PUBLIC_TM_API_KEY;
 
 function SearchBox() {
   const {

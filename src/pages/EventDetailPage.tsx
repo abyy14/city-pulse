@@ -15,12 +15,12 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import EventCarousel from '../../components/common/EventCarousel';
-import { formatDateFn } from '../../utils/helper';
+import EventCarousel from '../components/EventCarousel';
+import { formatDateFn } from '../utils/helper';
 import { ExpandMore } from '@mui/icons-material';
-import MapPreview from '../../components/MapPreview';
+import MapPreview from '../components/MapPreview';
 
-const TM_API_KEY = process.env.NEXT_PUBLIC_TM_API_KEY;
+const TM_API_KEY = process.env.REACT_APP_PUBLIC_TM_API_KEY;
 
 const EventDetailPage = () => {
   const { id } = useParams();

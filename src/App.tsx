@@ -2,25 +2,31 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Splash from './pages/Splash/Splash';
-import Home from './pages/Home/Home';
-import Login from './pages/Login/Login';
-import Register from './pages/Login/SignUp';
-import Favourites from './pages/Favourites/Favourites';
-import ProtectedRoute from './components/common/ProtectedRoute';
+import Login from './pages/Login';
+import Register from './pages/SignUp';
+import Favourites from './pages/Favourites';
+import ProtectedRoute from './components/ProtectedRoute';
 import { useSyncUser } from './hooks/useUserSync';
 import Profile from './pages/Profile';
 import MainLayout from './pages/MainLayout';
-import EventDetailPage from './pages/ViewEvent/EventDetailPage';
+import EventDetailPage from './pages/EventDetailPage';
+import { useDirection } from './context/DirectionContext';
+import { CacheProvider } from '@emotion/react';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import EventContainer from './components/EventContainer';
 
 function App() {
   useSyncUser();
+  const { theme, emotionCache } = useDirection();
   return (
-
+    <CacheProvider value={emotionCache}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
     <Router>
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route element={<MainLayout />}>
-          <Route path="/home" element={<Home />} />
+          <Route path="/events" element={<EventContainer />} />
           <Route path="/events/:id" element={<EventDetailPage />} />
 
           <Route
@@ -47,6 +53,8 @@ function App() {
         <Route path="*" element={<Splash />} />
       </Routes>
     </Router>
+      </ThemeProvider>
+    </CacheProvider>
   );
 }
 
