@@ -1,6 +1,10 @@
 # City Pulse – Local Events Explorer
 
-**City Pulse** is a responsive event discovery web app built with **React.js**, **TypeScript**, **Firebase**, and **Clerk Authentication**. It allows users to search for events, view event details, mark favorites, and preview event locations on a map – all with a clean, mobile-friendly UI and support for both English and Arabic.
+**City Pulse** is a responsive event discovery web app built with **React.js**, **TypeScript**, **Firebase**, and **Clerk Authentication**. It allows users to search for events, view event details, mark favorites, and preview event locations on a map – all with a clean, mobile-friendly UI and support for both RTL support.
+
+## Live Demo
+
+[Live Site](https://city-pulse-flax.vercel.app/)
 
 ## Features
 
@@ -79,9 +83,6 @@ Authentication is powered by Clerk and supports:
 - OAuth providers (Google)  
 
 
-## Live Demo
-
-[Live Site](https://city-pulse-demo.vercel.app) *(replace with your actual deployed URL)*
 
 ## Author
 
