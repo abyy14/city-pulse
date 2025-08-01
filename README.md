@@ -1,46 +1,91 @@
-# Getting Started with Create React App
+# City Pulse – Local Events Explorer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**City Pulse** is a responsive event discovery web app built with **React.js**, **TypeScript**, **Firebase**, and **Clerk Authentication**. It allows users to search for events, view event details, mark favorites, and preview event locations on a map – all with a clean, mobile-friendly UI and support for both English and Arabic.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Search events by keyword and city using the Ticketmaster Discovery API  
+- View full event details including date, time, image, and location preview  
+- Add events to favorites, stored in Firestore for authenticated users  
+- Toggle language between English and Arabic  
+- Mobile-first responsive design  
+- Venue location map preview  
+- User authentication using Clerk (email, social logins, biometric)  
+- Firebase Firestore integration for storing user data  
+- UI built with MUI and Framer Motion  
+- Global state management with Zustand  
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Prerequisites
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Node.js v18 or above  
+- Firebase Project with Firestore enabled  
+- Clerk Project ([https://clerk.dev](https://clerk.dev))  
+- Ticketmaster Developer Account ([https://developer.ticketmaster.com](https://developer.ticketmaster.com))  
 
-### `npm test`
+### Clone the Project
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+git clone https://github.com/your-username/city-pulse.git
+cd city-pulse
+npm install
 
-### `npm run build`
+## Environment Variables
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Create a `.env` file in the root directory of your project and add the following variables:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+REACT_APP_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+REACT_APP_CLERK_SIGN_IN_URL=/sign-in
+REACT_APP_CLERK_SIGN_UP_URL=/sign-up
+REACT_APP_FIREBASE_API_KEY=your_firebase_key
+REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+REACT_APP_FIREBASE_APP_ID=your_app_id
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
+REACT_APP_TICKETMASTER_API_KEY=your_ticketmaster_api_key
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Run the App
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To start the development server:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm start
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Assumptions
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Only authenticated users can manage favorites  
+- Language toggle affects both UI text and layout direction (LTR/RTL)  
+- Favorite events are stored per user in Firestore  
+- Ticketmaster Discovery API powers all event data  
+- Location preview uses a mapping service (Leaflet)  
 
-## Learn More
+## Tech Stack
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- React.js with TypeScript  
+- Clerk for authentication  
+- Firebase Firestore  
+- Zustand for state management  
+- MUI for UI components  
+- Framer Motion for animations  
+- Ticketmaster Discovery API  
+- React Router DOM  
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Authentication
+
+Authentication is powered by Clerk and supports:
+
+- Email/password login  
+- OAuth providers (Google)  
+
+
+## Live Demo
+
+[Live Site](https://city-pulse-demo.vercel.app) *(replace with your actual deployed URL)*
+
+## Author
+
+**Abirami R**  
+Senior Software Engineer (UI)  
+[LinkedIn](https://www.linkedin.com/in/abiramiravikumar)  
+[GitHub](https://github.com/abyy14)
