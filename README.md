@@ -14,7 +14,7 @@
 - Toggle language between English and Arabic  
 - Mobile-first responsive design  
 - Venue location map preview  
-- User authentication using Clerk (email, social logins, biometric)  
+- User authentication using Clerk (email, social logins)  
 - Firebase Firestore integration for storing user data  
 - UI built with MUI and Framer Motion  
 - Global state management with Zustand  
