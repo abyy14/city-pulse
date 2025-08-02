@@ -14,7 +14,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const TM_API_KEY = process.env.REACT_APP_PUBLIC_TM_API_KEY;
 
-function SearchBox() {
+function SearchBox({handleSearchToggle, isMobile = false }: { isMobile?: boolean, handleSearchToggle?: (open: boolean) => void }) {
   const {
     eventQuery,
     cityQuery,
@@ -84,6 +84,7 @@ function SearchBox() {
   const handleEventSelect = async (selectedName: string) => {
     setEventQuery(selectedName);
     setActive(null);
+    isMobile &&  handleSearchToggle && handleSearchToggle(false);
 
     try {
       // Fetch full events matching selected name
@@ -151,7 +152,7 @@ function SearchBox() {
             }
           />
           <SearchPopover
-            open={active === 'event'}
+            open={active === 'event' && !!eventSuggestions.length}
             anchorEl={eventInputRef.current}
             results={eventSuggestions}
             onClose={() => setActive(null)}
@@ -179,7 +180,7 @@ function SearchBox() {
             }
           />
           <SearchPopover
-            open={active === 'city'}
+            open={active === 'city' && !!citySuggestions.length}
             anchorEl={cityInputRef.current}
             results={citySuggestions}
             onClose={() => setActive(null)}

@@ -159,7 +159,7 @@ export default function CustomNavBar() {
         maxWidth="sm"
       >
         <Box sx={{ p: 2 }}>
-          <SearchBox />
+          <SearchBox handleSearchToggle={handleSearchToggle} isMobile={isMobile} />
         </Box>
       </Dialog>
 
