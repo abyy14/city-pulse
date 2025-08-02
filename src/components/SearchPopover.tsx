@@ -22,7 +22,7 @@ const SearchPopover: React.FC<Props> = ({ open, anchorEl, results, onClose, onSe
   }, [open, onClose]);
 
   return (
-    <Popper open={open} anchorEl={anchorEl} placement="bottom-start" style={{ zIndex: 1200 }}>
+    <Popper open={open} anchorEl={anchorEl} placement="bottom-start" style={{ zIndex: 2000 }}>
       <ClickAwayListener onClickAway={onClose}>
         <Paper elevation={3} sx={{ width: 250, mt: 1 }}>
           <List>

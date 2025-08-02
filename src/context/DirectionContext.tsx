@@ -29,7 +29,9 @@ export const DirectionProvider = ({ children }: { children: React.ReactNode }) =
     setDirection(prev => (prev === 'ltr' ? 'rtl' : 'ltr'));
   };
 
-  const theme = useMemo(() => createTheme({ direction }), [direction]);
+  const theme = useMemo(() => createTheme({ direction, typography : {
+    fontFamily: 'Neue Plak, sans-serif',
+  } }), [direction]);
 
   const emotionCache = useMemo(
     () =>

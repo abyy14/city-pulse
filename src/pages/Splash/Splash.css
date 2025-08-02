@@ -2,12 +2,12 @@
 .splash-container {
   height: 100vh;
   width: 100vw;
-  background-color: #1e1e2f;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: #eb7ae1;
 }
 
 .splash-logo {
