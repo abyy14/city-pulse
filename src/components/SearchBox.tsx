@@ -1,20 +1,26 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from "react";
 import {
   Box,
   InputBase,
   Divider,
   ClickAwayListener,
-  InputAdornment
-} from '@mui/material';
-import axios from 'axios';
-import SearchPopover from './SearchPopover';
-import { useEventStore } from '../store/useEventStore';
-import SearchIcon from '@mui/icons-material/Search';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+  InputAdornment,
+} from "@mui/material";
+import axios from "axios";
+import SearchPopover from "./SearchPopover";
+import { useEventStore } from "../store/useEventStore";
+import SearchIcon from "@mui/icons-material/Search";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 const TM_API_KEY = process.env.REACT_APP_PUBLIC_TM_API_KEY;
 
-function SearchBox({handleSearchToggle, isMobile = false }: { isMobile?: boolean, handleSearchToggle?: (open: boolean) => void }) {
+function SearchBox({
+  handleSearchToggle,
+  isMobile = false,
+}: {
+  isMobile?: boolean;
+  handleSearchToggle?: (open: boolean) => void;
+}) {
   const {
     eventQuery,
     cityQuery,
@@ -22,10 +28,10 @@ function SearchBox({handleSearchToggle, isMobile = false }: { isMobile?: boolean
     setCityQuery,
     setEvents,
     setFilteredEvents,
-    clearFilteredEvents
+    clearFilteredEvents,
   } = useEventStore();
 
-  const [active, setActive] = useState<'event' | 'city' | null>(null);
+  const [active, setActive] = useState<"event" | "city" | null>(null);
   const [eventSuggestions, setEventSuggestions] = useState<string[]>([]);
   const [citySuggestions, setCitySuggestions] = useState<string[]>([]);
 
@@ -42,13 +48,17 @@ function SearchBox({handleSearchToggle, isMobile = false }: { isMobile?: boolean
 
     const fetchEventSuggestions = async () => {
       try {
-        const response = await axios.get('https://app.ticketmaster.com/discovery/v2/events.json', {
-          params: { apikey: TM_API_KEY, keyword: eventQuery, size: 5 },
-        });
+        let  params = cityQuery ? { apikey: TM_API_KEY, keyword: eventQuery, size: 5, city : cityQuery } : { apikey: TM_API_KEY, keyword: eventQuery, size: 5 };
+        const response = await axios.get(
+          "https://app.ticketmaster.com/discovery/v2/events.json",
+          {
+            params: params
+          }
+        );
         const events = response.data._embedded?.events || [];
         setEventSuggestions(events.map((e: any) => e.name));
       } catch (error) {
-        console.error('Event fetch error:', error);
+        console.error("Event fetch error:", error);
       }
     };
 
@@ -65,14 +75,35 @@ function SearchBox({handleSearchToggle, isMobile = false }: { isMobile?: boolean
 
     const fetchCitySuggestions = async () => {
       try {
-        const response = await axios.get('https://app.ticketmaster.com/discovery/v2/events.json', {
-          params: { apikey: TM_API_KEY, city: cityQuery, size: 5 },
-        });
+        const response = await axios.get(
+          "https://app.ticketmaster.com/discovery/v2/events.json",
+          {
+            params: {
+              apikey: TM_API_KEY,
+              keyword: cityQuery,
+              size: 10,
+            },
+          }
+        );
+
         const events = response.data._embedded?.events || [];
-        const cities: string[] = Array.from(new Set(events.map((e: any) => e._embedded.venues[0].city.name)));
-        setCitySuggestions(cities);
+
+        const rawCities = events
+          .map((e: any) => e._embedded?.venues?.[0]?.city?.name)
+          .filter((name: string | undefined): name is string => Boolean(name));
+
+        // Normalize and filter cities based on input match
+        const filteredCities = Array.from(
+          new Set(
+            rawCities.filter((city: string) =>
+              city.toLowerCase().startsWith(cityQuery.toLowerCase())
+            )
+          )
+        );
+
+        setCitySuggestions(filteredCities as string[]);
       } catch (error) {
-        console.error('City fetch error:', error);
+        console.error("City fetch error:", error);
       }
     };
 
@@ -84,35 +115,43 @@ function SearchBox({handleSearchToggle, isMobile = false }: { isMobile?: boolean
   const handleEventSelect = async (selectedName: string) => {
     setEventQuery(selectedName);
     setActive(null);
-    isMobile &&  handleSearchToggle && handleSearchToggle(false);
+    isMobile && handleSearchToggle && handleSearchToggle(false);
 
     try {
       // Fetch full events matching selected name
-      const response = await axios.get('https://app.ticketmaster.com/discovery/v2/events.json', {
-        params: { apikey: TM_API_KEY, keyword: selectedName, size: 20 },
-      });
+      let  params = cityQuery ? { apikey: TM_API_KEY, keyword: selectedName, size: 10, city : cityQuery } : { apikey: TM_API_KEY, keyword: selectedName, size: 10 };
+      const response = await axios.get(
+        "https://app.ticketmaster.com/discovery/v2/events.json",
+        {
+          params: params,
+        }
+      );
       const events = response.data._embedded?.events || [];
       setEvents(events);
       setFilteredEvents(events);
     } catch (error) {
-      console.error('Error fetching filtered events:', error);
+      console.error("Error fetching filtered events:", error);
     }
   };
 
   // Handle city suggestion selection: fetch events for city and clear filters
   const handleCitySelect = async (selectedCity: string) => {
+    setEventQuery('');
     setCityQuery(selectedCity);
     setActive(null);
 
     try {
-      const response = await axios.get('https://app.ticketmaster.com/discovery/v2/events.json', {
-        params: { apikey: TM_API_KEY, city: selectedCity, size: 20 },
-      });
+      const response = await axios.get(
+        "https://app.ticketmaster.com/discovery/v2/events.json",
+        {
+          params: { apikey: TM_API_KEY, city: selectedCity, size: 20 },
+        }
+      );
       const events = response.data._embedded?.events || [];
       setEvents(events);
       clearFilteredEvents();
     } catch (error) {
-      console.error('Error fetching city events:', error);
+      console.error("Error fetching city events:", error);
     }
   };
 
@@ -120,39 +159,45 @@ function SearchBox({handleSearchToggle, isMobile = false }: { isMobile?: boolean
     <ClickAwayListener onClickAway={() => setActive(null)}>
       <Box
         sx={{
-          display: 'flex',
-          border: '1px solid #ccc',
-          borderRadius: '20px',
-          overflow: 'hidden',
+          display: "flex",
+          border: "1px solid #ccc",
+          borderRadius: "20px",
+          overflow: "hidden",
           flexGrow: 1,
           maxWidth: 600,
-          backgroundColor: '#fff',
-          height: '42px',
-           '&:hover': {
-      boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-    },
+          backgroundColor: "#fff",
+          height: "42px",
+          "&:hover": {
+            boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+          },
         }}
       >
-        <Box sx={{ flex: 1, position: 'relative', height: 'inherit' }}>
+        <Box sx={{ flex: 1, position: "relative", height: "inherit" }}>
           <InputBase
             placeholder="Search events"
             value={eventQuery}
             onChange={(e) => {
               setEventQuery(e.target.value);
-              setActive('event');
+              setActive("event");
               if (!e.target.value) clearFilteredEvents();
             }}
             inputRef={eventInputRef}
-            onFocus={() => setActive('event')}
-            sx={{ px: 2, py: 1, width: '100%', height: 'inherit', fontSize: '0.75rem' }}
+            onFocus={() => setActive("event")}
+            sx={{
+              px: 2,
+              py: 1,
+              width: "100%",
+              height: "inherit",
+              fontSize: "0.75rem",
+            }}
             startAdornment={
               <InputAdornment position="start">
-                <SearchIcon fontSize="small" sx={{ color: 'text.secondary' }} />
+                <SearchIcon fontSize="small" sx={{ color: "text.secondary" }} />
               </InputAdornment>
             }
           />
           <SearchPopover
-            open={active === 'event' && !!eventSuggestions.length}
+            open={active === "event" && !!eventSuggestions.length}
             anchorEl={eventInputRef.current}
             results={eventSuggestions}
             onClose={() => setActive(null)}
@@ -162,25 +207,34 @@ function SearchBox({handleSearchToggle, isMobile = false }: { isMobile?: boolean
 
         <Divider orientation="vertical" flexItem />
 
-        <Box sx={{ flex: 1, position: 'relative', height: 'inherit' }}>
+        <Box sx={{ flex: 1, position: "relative", height: "inherit" }}>
           <InputBase
             placeholder="Search city"
             value={cityQuery}
             onChange={(e) => {
               setCityQuery(e.target.value);
-              setActive('city');
+              setActive("city");
             }}
             inputRef={cityInputRef}
-            onFocus={() => setActive('city')}
-            sx={{ px: 2, py: 1, width: '100%', height: 'inherit', fontSize: '0.75rem' }}
+            onFocus={() => setActive("city")}
+            sx={{
+              px: 2,
+              py: 1,
+              width: "100%",
+              height: "inherit",
+              fontSize: "0.75rem",
+            }}
             startAdornment={
               <InputAdornment position="start">
-                <LocationOnIcon fontSize="small" sx={{ color: 'text.secondary' }} />
+                <LocationOnIcon
+                  fontSize="small"
+                  sx={{ color: "text.secondary" }}
+                />
               </InputAdornment>
             }
           />
           <SearchPopover
-            open={active === 'city' && !!citySuggestions.length}
+            open={active === "city" && !!citySuggestions.length}
             anchorEl={cityInputRef.current}
             results={citySuggestions}
             onClose={() => setActive(null)}
