@@ -19,3 +19,25 @@ code {
   font-style: normal;
   font-display: swap;
 }
+
+:root {
+  --swiper-navigation-color: #fff; 
+  --swiper-navigation-size : 25px !important; /* Adjust size of navigation arrows */
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent dark bg */
+  padding: 0.5rem;
+  border-radius: 50%;
+  color: #fff; /* white arrow */
+  z-index: 10;
+  transition: background-color 0.2s;
+  width: 58px !important;
+  height: 46px !important;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}

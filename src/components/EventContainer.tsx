@@ -33,6 +33,7 @@ const EventContainer = () => {
     page,
     totalPages,
     loading,
+    cityQuery
   } = useEventStore();
 
   const { user } = useUser();
@@ -126,7 +127,7 @@ const EventContainer = () => {
         fontWeight="bold"
         fontSize={{ xs: '1.5rem', sm: '2rem' }}
       >
-        Events in Dubai
+        {cityQuery ? `Events in ${cityQuery}` : `Events`} 
       </Typography>
 
       {!initialFetchDone ? (

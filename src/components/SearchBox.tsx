@@ -39,32 +39,56 @@ function SearchBox({
   const cityInputRef = useRef<HTMLInputElement | null>(null);
 
   // Fetch event suggestions for autocomplete
-  useEffect(() => {
-    if (!eventQuery) {
-      setEventSuggestions([]);
-      clearFilteredEvents(); // clear filter if input empty
-      return;
+ useEffect(() => {
+  if (!eventQuery) {
+    setEventSuggestions([]);
+
+    if (cityQuery) {
+      (async () => {
+        try {
+          const response = await axios.get(
+            "https://app.ticketmaster.com/discovery/v2/events.json",
+            {
+              params: { apikey: TM_API_KEY, city: cityQuery, size: 20 },
+            }
+          );
+          const events = response.data._embedded?.events || [];
+          setEvents(events);
+          clearFilteredEvents();
+        } catch (error) {
+          console.error("Error fetching city-only events:", error);
+        }
+      })();
+    } else {
+      setEvents([]);
+      clearFilteredEvents();
     }
 
-    const fetchEventSuggestions = async () => {
-      try {
-        let  params = cityQuery ? { apikey: TM_API_KEY, keyword: eventQuery, size: 5, city : cityQuery } : { apikey: TM_API_KEY, keyword: eventQuery, size: 5 };
-        const response = await axios.get(
-          "https://app.ticketmaster.com/discovery/v2/events.json",
-          {
-            params: params
-          }
-        );
-        const events = response.data._embedded?.events || [];
-        setEventSuggestions(events.map((e: any) => e.name));
-      } catch (error) {
-        console.error("Event fetch error:", error);
-      }
-    };
+    return;
+  }
 
-    const debounce = setTimeout(fetchEventSuggestions, 300);
-    return () => clearTimeout(debounce);
-  }, [eventQuery, clearFilteredEvents]);
+  const fetchEventSuggestions = async () => {
+    try {
+      const params = cityQuery
+        ? { apikey: TM_API_KEY, keyword: eventQuery, size: 5, city: cityQuery }
+        : { apikey: TM_API_KEY, keyword: eventQuery, size: 5 };
+
+      const response = await axios.get(
+        "https://app.ticketmaster.com/discovery/v2/events.json",
+        { params }
+      );
+
+      const events = response.data._embedded?.events || [];
+      setEventSuggestions(events.map((e: any) => e.name));
+    } catch (error) {
+      console.error("Event fetch error:", error);
+    }
+  };
+
+  const debounce = setTimeout(fetchEventSuggestions, 300);
+  return () => clearTimeout(debounce);
+}, [eventQuery, cityQuery, clearFilteredEvents, setEvents]);
+
 
   // Fetch city suggestions for autocomplete
   useEffect(() => {
