@@ -14,7 +14,7 @@
 - Toggle language between English and Arabic  
 - Mobile-first responsive design  
 - Venue location map preview  
-- User authentication using Clerk (email, social logins, biometric)  
+- User authentication using Clerk (email, social logins)  
 - Firebase Firestore integration for storing user data  
 - UI built with MUI and Framer Motion  
 - Global state management with Zustand  
@@ -35,7 +35,7 @@ git clone https://github.com/your-username/city-pulse.git
 cd city-pulse
 npm install
 
-## Environment Variables
+### Environment Variables
 
 Create a `.env` file in the root directory of your project and add the following variables:
 
@@ -49,14 +49,14 @@ REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
 REACT_APP_TICKETMASTER_API_KEY=your_ticketmaster_api_key
 
 
-## Run the App
+### Run the App
 
 To start the development server:
 
 ```bash
 npm start
 
-## Assumptions
+### Assumptions
 
 - Only authenticated users can manage favorites  
 - Language toggle affects both UI text and layout direction (LTR/RTL)  
@@ -64,7 +64,7 @@ npm start
 - Ticketmaster Discovery API powers all event data  
 - Location preview uses a mapping service (Leaflet)  
 
-## Tech Stack
+### Tech Stack
 
 - React.js with TypeScript  
 - Clerk for authentication  
@@ -75,7 +75,7 @@ npm start
 - Ticketmaster Discovery API  
 - React Router DOM  
 
-## Authentication
+### Authentication
 
 Authentication is powered by Clerk and supports:
 
