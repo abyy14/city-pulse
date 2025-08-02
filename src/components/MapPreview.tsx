@@ -1,4 +1,3 @@
-// components/MapPreview.tsx
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -18,16 +17,35 @@ const MapPreview = ({ latitude, longitude, locationName }: Props) => {
     shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
   });
 
+  const openGoogleMaps = () => {
+    const url = `https://www.google.com/maps?q=${latitude},${longitude}`;
+    window.open(url, '_blank');
+  };
+
   return (
-    <div style={{ height: '300px', width: '100%', borderRadius: '12px', overflow: 'hidden', marginTop: '1rem' }}>
+    <div
+      onClick={openGoogleMaps}
+      style={{
+        height: '300px',
+        width: '100%',
+        borderRadius: '12px',
+        overflow: 'hidden',
+        marginTop: '1rem',
+        cursor: 'pointer',
+        position: 'relative',
+      }}
+    >
       <MapContainer
         center={[latitude, longitude]}
         zoom={13}
         scrollWheelZoom={false}
-        style={{ height: '100%', width: '100%' }}
+        dragging={false}
+        zoomControl={false}
+        doubleClickZoom={false}
+        style={{ height: '100%', width: '100%', pointerEvents: 'none' }} // prevent internal interaction
       >
         <TileLayer
-          attribution='&copy; OpenStreetMap'
+          attribution="&copy; OpenStreetMap"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={[latitude, longitude]}>
