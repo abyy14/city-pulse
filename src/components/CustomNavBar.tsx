@@ -49,7 +49,7 @@ export default function CustomNavBar() {
           height: "64px",
           borderBottom: "1px solid #eee",
           boxShadow: "none",
-          paddingTop: "3px",
+          paddingTop: "10px",
         }}
       >
         <Box
