@@ -78,8 +78,6 @@ npm start
 ### Authentication
 
 Authentication is powered by Clerk and supports:
-
-- Email/password login  
 - OAuth providers (Google)  
 
 
