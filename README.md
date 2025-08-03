@@ -1,6 +1,6 @@
 # City Pulse – Local Events Explorer
 
-**City Pulse** is a responsive event discovery web app built with **React.js**, **TypeScript**, **Firebase**, and **Clerk Authentication**. It allows users to search for events, view event details, mark favorites, and preview event locations on a map – all with a clean, mobile-friendly UI and support for both RTL support.
+**City Pulse** is a responsive event discovery web app built with **React.js**, **TypeScript**, **Firebase**, and **Clerk Authentication**. It allows users to search for events, view event details, mark favorites, and preview event locations on a map – all with a clean, mobile-friendly UI and support for RTL support.
 
 ## Live Demo
 
