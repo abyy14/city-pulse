@@ -11,10 +11,10 @@
 - Search events by keyword and city using the Ticketmaster Discovery API  
 - View full event details including date, time, image, and location preview  
 - Add events to favorites, stored in Firestore for authenticated users  
-- Toggle language between English and Arabic  
+- Toggle between LTL and RTL format support
 - Mobile-first responsive design  
-- Venue location map preview  
-- User authentication using Clerk (email, social logins)  
+- Venue location map preview and support to open google map
+- User authentication using Clerk (social logins)  
 - Firebase Firestore integration for storing user data  
 - UI built with MUI and Framer Motion  
 - Global state management with Zustand  
