@@ -67,6 +67,7 @@ const EventCard = ({ event, liked = false, onToggleLike }: Props) => {
             zIndex: 1,
           }}
           onClick={(e) => {
+            e.preventDefault();
             e.stopPropagation();
             onToggleLike(event);
           }}
